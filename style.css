@@ -60,7 +60,7 @@ table tr td:last-child {
 
 /* Spielerfarben */
 td.cross {
-  color: red;
+  color: yellow;
 }
 
 td.circle {

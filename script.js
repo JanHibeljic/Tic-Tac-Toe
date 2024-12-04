@@ -18,9 +18,16 @@ function render() {
     for (let j = 0; j < 3; j++) {
       const index = i * 3 + j;
       const fieldClass = fields[index] || "";
-      html += `<td class="${fieldClass}" onclick="makeMove(${index})">${
-        fields[index] ? (fields[index] === "cross" ? "X" : "O") : ""
-      }</td>`;
+      html += `<td class="${fieldClass}" onclick="makeMove(${index})">`;
+
+      // Wenn das Feld "cross" oder "circle" ist, setze den entsprechenden Inhalt
+      if (fields[index] === "cross") {
+        html += generateCrossSVG();
+      } else if (fields[index] === "circle") {
+        html += generateCircleSVG(); // SVG für den Kreis einfügen
+      }
+
+      html += "</td>";
     }
     html += "</tr>";
   }
@@ -85,3 +92,63 @@ function resetGame() {
 
 // Initialisiere das Spiel
 init();
+
+function generateCircleSVG() {
+  return `
+  <svg width="70" height="70" viewBox="0 0 70 70" xmlns="http://www.w3.org/2000/svg">
+    <circle 
+      cx="35" 
+      cy="35" 
+      r="30" 
+      fill="none" 
+      stroke="#00B0EF" 
+      stroke-width="5" 
+      stroke-dasharray="188.4" 
+      stroke-dashoffset="188.4">
+      <animate 
+        attributeName="stroke-dashoffset" 
+        from="188.4" 
+        to="0" 
+        dur="0.2s" 
+        repeatCount="1" 
+        fill="freeze" />
+    </circle>
+  </svg>`;
+}
+
+function generateCrossSVG() {
+  return `
+  <svg width="70" height="70" viewBox="0 0 70 70" xmlns="http://www.w3.org/2000/svg">
+    <!-- Linie von oben links nach unten rechts -->
+    <line x1="10" y1="10" x2="60" y2="60" stroke="red" stroke-width="5" stroke-linecap="round">
+      <animate 
+        attributeName="x2" 
+        from="10" 
+        to="60" 
+        dur="0.2s" 
+        fill="freeze" />
+      <animate 
+        attributeName="y2" 
+        from="10" 
+        to="60" 
+        dur="0.2s" 
+        fill="freeze" />
+    </line>
+    
+    <!-- Linie von oben rechts nach unten links -->
+    <line x1="60" y1="10" x2="10" y2="60" stroke="red" stroke-width="5" stroke-linecap="round">
+      <animate 
+        attributeName="x2" 
+        from="60" 
+        to="10" 
+        dur="0.2s" 
+        fill="freeze" />
+      <animate 
+        attributeName="y2" 
+        from="10" 
+        to="60" 
+        dur="0.2s" 
+        fill="freeze" />
+    </line>
+  </svg>`;
+}
