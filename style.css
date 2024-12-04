@@ -1,36 +1,68 @@
-/* advent-pro-regular - latin */
-@font-face {
-  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-  font-family: "Advent Pro";
-  font-style: normal;
-  font-weight: 400;
-  src: url("../fonts/advent-pro-v28-latin-regular.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-}
-
-/* advent-pro-700 - latin */
-@font-face {
-  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-  font-family: "Advent Pro";
-  font-style: normal;
-  font-weight: 700;
-  src: url("../fonts/advent-pro-v28-latin-700.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-}
-
-/* advent-pro-700italic - latin */
-@font-face {
-  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-  font-family: "Advent Pro";
-  font-style: italic;
-  font-weight: 700;
-  src: url("../fonts/advent-pro-v28-latin-700italic.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-}
-
-body {
-  font-family: "Advent Pro";
-  background-color: #007aff !important;
-  min-height: 100vh;
-}
-
 .d_none {
   display: none;
+}
+
+/* Hintergrundfarbe der gesamten Seite */
+body {
+  background-color: #323232;
+  font-family: "Open Sans", sans-serif;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+}
+
+#content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+/* Tabelle */
+table {
+  border-collapse: collapse; /* Zusammenführen der Ränder innerhalb der Tabelle */
+  margin: 20px auto;
+}
+
+/* Zellen */
+table td {
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 24px;
+  font-weight: bold;
+  border: 5px solid white; /* Standard: Weiße Trennlinien */
+  cursor: pointer;
+}
+
+/* Entferne äußere Ränder */
+table tr:first-child td {
+  /* Oberer Rand */
+  border-top: 0;
+}
+table tr:last-child td {
+  /* Unterer Rand */
+  border-bottom: 0;
+}
+table tr td:first-child {
+  /* Linker Rand */
+  border-left: 0;
+}
+table tr td:last-child {
+  /* Rechter Rand */
+  border-right: 0;
+}
+
+/* Spielerfarben */
+td.cross {
+  color: red;
+}
+
+td.circle {
+  color: blue;
 }
