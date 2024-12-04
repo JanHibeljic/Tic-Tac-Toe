@@ -40,19 +40,31 @@ function render() {
 function makeMove(index) {
   if (!fields[index]) {
     fields[index] = currentPlayer; // Setze den aktuellen Spieler ins Feld
+
+    // Das geklickte Feld direkt anpassen
+    const cell = document.querySelectorAll("td")[index];
+    if (currentPlayer === "cross") {
+      cell.innerHTML = generateCrossSVG(); // Animiertes X einfügen
+      cell.classList.add("cross"); // Optional: Klasse für Styling hinzufügen
+    } else {
+      cell.innerHTML = generateCircleSVG(); // Animiertes O einfügen
+      cell.classList.add("circle"); // Optional: Klasse für Styling hinzufügen
+    }
+
+    // Prüfe auf Gewinn oder Unentschieden
     if (checkWin()) {
       setTimeout(() => {
         alert(`${currentPlayer === "cross" ? "X" : "O"} hat gewonnen!`);
         resetGame();
-      }, 100);
+      }, 300); //verzögerung auf 0.3s
     } else if (checkDraw()) {
       setTimeout(() => {
         alert("Unentschieden!");
         resetGame();
-      }, 100);
+      }, 300); //verzögerung auf 0.3s
     } else {
-      currentPlayer = currentPlayer === "cross" ? "circle" : "cross"; // Wechsle den Spieler
-      render(); // Aktualisiere die Ansicht
+      // Spieler wechseln
+      currentPlayer = currentPlayer === "cross" ? "circle" : "cross";
     }
   }
 }
