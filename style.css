@@ -37,7 +37,6 @@ table td {
   font-size: 24px;
   font-weight: bold;
   border: 5px solid white; /* Standard: Weiße Trennlinien */
-  cursor: pointer;
 }
 
 /* Entferne äußere Ränder */
@@ -65,4 +64,9 @@ td.cross {
 
 td.circle {
   color: blue;
+}
+
+td:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  cursor: pointer;
 }

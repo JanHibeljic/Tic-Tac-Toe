@@ -132,7 +132,7 @@ function generateCrossSVG() {
   return `
   <svg width="70" height="70" viewBox="0 0 70 70" xmlns="http://www.w3.org/2000/svg">
     <!-- Linie von oben links nach unten rechts -->
-    <line x1="10" y1="10" x2="60" y2="60" stroke="red" stroke-width="5" stroke-linecap="round">
+    <line x1="10" y1="10" x2="60" y2="60" stroke="yellow" stroke-width="5" stroke-linecap="round">
       <animate 
         attributeName="x2" 
         from="10" 
@@ -148,7 +148,7 @@ function generateCrossSVG() {
     </line>
     
     <!-- Linie von oben rechts nach unten links -->
-    <line x1="60" y1="10" x2="10" y2="60" stroke="red" stroke-width="5" stroke-linecap="round">
+    <line x1="60" y1="10" x2="10" y2="60" stroke="yellow" stroke-width="5" stroke-linecap="round">
       <animate 
         attributeName="x2" 
         from="60" 
