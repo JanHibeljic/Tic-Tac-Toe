@@ -18,7 +18,7 @@ function render() {
     for (let j = 0; j < 3; j++) {
       const index = i * 3 + j;
       const fieldClass = fields[index] || "";
-      html += `<td class="${fieldClass}" onclick="makeMove(${index})">`;
+      html += `<td class="${fieldClass}" onclick="makeMove(${index})" id="cell-${index}">`;
 
       // Wenn das Feld "cross" oder "circle" ist, setze den entsprechenden Inhalt
       if (fields[index] === "cross") {
@@ -52,16 +52,18 @@ function makeMove(index) {
     }
 
     // Prüfe auf Gewinn oder Unentschieden
-    if (checkWin()) {
+    const winPattern = checkWin();
+    if (winPattern) {
+      drawWinLine(winPattern); // Linie zeichnen
       setTimeout(() => {
         alert(`${currentPlayer === "cross" ? "X" : "O"} hat gewonnen!`);
         resetGame();
-      }, 300); //verzögerung auf 0.3s
+      }, 1000); // Verzögerung für Siegmeldung
     } else if (checkDraw()) {
       setTimeout(() => {
         alert("Unentschieden!");
         resetGame();
-      }, 300); //verzögerung auf 0.3s
+      }, 300); // Verzögerung für Unentschiedenmeldung
     } else {
       // Spieler wechseln
       currentPlayer = currentPlayer === "cross" ? "circle" : "cross";
@@ -82,12 +84,16 @@ function checkWin() {
     [2, 4, 6], // Diagonale von oben rechts nach unten links
   ];
 
-  return winPatterns.some(
-    (pattern) =>
+  for (const pattern of winPatterns) {
+    if (
       fields[pattern[0]] === currentPlayer &&
       fields[pattern[1]] === currentPlayer &&
       fields[pattern[2]] === currentPlayer
-  );
+    ) {
+      return pattern; // Rückgabe des Gewinnmusters
+    }
+  }
+  return null;
 }
 
 // Funktion, um ein Unentschieden zu prüfen
@@ -100,6 +106,51 @@ function resetGame() {
   fields = [null, null, null, null, null, null, null, null, null];
   currentPlayer = "cross";
   render();
+}
+
+// Funktion, um eine Linie für das Gewinnmuster zu zeichnen
+function drawWinLine(pattern) {
+  const content = document.getElementById("content");
+  const cells = pattern.map((index) =>
+    document.getElementById(`cell-${index}`)
+  );
+
+  // Berechnung der Positionen
+  const rectStart = cells[0].getBoundingClientRect();
+  const rectEnd = cells[2].getBoundingClientRect();
+
+  const line = document.createElement("div");
+  line.style.position = "absolute";
+  line.style.backgroundColor = "white";
+  line.style.height = "5px";
+  line.style.borderRadius = "2px";
+  line.style.zIndex = "10";
+
+  // Berechnung der Winkel und Länge
+  const startX = rectStart.left + rectStart.width / 2;
+  const startY = rectStart.top + rectStart.height / 2;
+  const endX = rectEnd.left + rectEnd.width / 2;
+  const endY = rectEnd.top + rectEnd.height / 2;
+
+  const length = Math.sqrt(
+    Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2)
+  );
+  const angle = Math.atan2(endY - startY, endX - startX) * (180 / Math.PI);
+
+  // Linie platzieren
+  line.style.width = `${length}px`;
+  line.style.transform = `rotate(${angle}deg)`;
+  line.style.transformOrigin = "0 0";
+  line.style.left = `${startX}px`;
+  line.style.top = `${startY}px`;
+
+  // Linie zur Seite hinzufügen
+  document.body.appendChild(line);
+
+  // Entferne die Linie nach dem Reset
+  setTimeout(() => {
+    line.remove();
+  }, 1000);
 }
 
 // Initialisiere das Spiel
@@ -158,8 +209,7 @@ function generateCrossSVG() {
       <animate 
         attributeName="y2" 
         from="10" 
-        to="60" 
-        dur="0.2s" 
+        to="60" dur="0.2s" 
         fill="freeze" />
     </line>
   </svg>`;
