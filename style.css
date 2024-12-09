@@ -15,16 +15,41 @@ h1 {
   text-align: center;
 }
 
+/* Spielerstatus */
+#status {
+  text-align: center;
+  font-size: 1.2em;
+  margin: 10px 0;
+  padding-top: 80px;
+}
+
 #content {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80vh;
+  height: 60vh;
+}
+
+/* Restart-Button */
+#restart {
+  display: block;
+  margin: 10px auto;
+  padding: 10px 20px;
+  font-size: 1em;
+  background-color: #00b0ef;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#restart:hover {
+  background-color: #0078a3;
 }
 
 /* Tabelle */
 table {
-  border-collapse: collapse; /* Zusammenführen der Ränder innerhalb der Tabelle */
+  border-collapse: collapse;
   margin: 20px auto;
 }
 
@@ -36,24 +61,20 @@ table td {
   vertical-align: middle;
   font-size: 24px;
   font-weight: bold;
-  border: 5px solid white; /* Standard: Weiße Trennlinien */
+  border: 5px solid white;
 }
 
 /* Entferne äußere Ränder */
 table tr:first-child td {
-  /* Oberer Rand */
   border-top: 0;
 }
 table tr:last-child td {
-  /* Unterer Rand */
   border-bottom: 0;
 }
 table tr td:first-child {
-  /* Linker Rand */
   border-left: 0;
 }
 table tr td:last-child {
-  /* Rechter Rand */
   border-right: 0;
 }
 
